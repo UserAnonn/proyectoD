@@ -3,6 +3,9 @@ package alkemy.disney.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.type.LocalDateType;
 
 import javax.persistence.*;
@@ -12,10 +15,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "pelicula")
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE pelicula SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
 public class PeliculaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -23,20 +29,23 @@ public class PeliculaEntity {
     private String imagen;
     private String titulo;
 
-    @Column(name = "fecha_creacion")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Column(name = "fecha_creacion", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDate fechaCreacion;
 
-    public LocalDate getFechaCreacion() {
-        fechaCreacion = LocalDate.now();
+    public LocalDate getCreated() {
         return fechaCreacion;
     }
 
     private Integer calificacion;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "genero_id")
+    @Column(name = "genero_id", nullable = false)
+    private Long generoId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "genero_id", insertable=false, updatable=false)
     private GeneroEntity genero;
+
+    private boolean deleted = Boolean.FALSE;
 
     @ManyToMany(
             cascade = {

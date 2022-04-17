@@ -17,6 +17,7 @@ import javax.persistence.*;
 public class GeneroEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "genero_id")
     private Long id;
     private String imagen;
     private String nombre;
