@@ -1,9 +1,15 @@
 package alkemy.disney.mapper;
 
+import alkemy.disney.dto.GeneroDTO;
+import alkemy.disney.dto.PeliculaBasicDTO;
 import alkemy.disney.dto.PeliculaDTO;
+import alkemy.disney.entity.GeneroEntity;
 import alkemy.disney.entity.PeliculaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class PeliculaMapper {
@@ -31,6 +37,22 @@ public class PeliculaMapper {
         peliculaDTO.setCalificacion(peliculaEntity.getCalificacion());
         peliculaEntity.setGenero(peliculaEntity.getGenero());
         return peliculaDTO;
+    }
+
+    public PeliculaBasicDTO peliculaEntity2BasicDTO(PeliculaEntity peliculaEntity){
+        PeliculaBasicDTO peliculaBasicDTO = new PeliculaBasicDTO();
+        peliculaBasicDTO.setImagen(peliculaEntity.getImagen());
+        peliculaBasicDTO.setTitulo(peliculaEntity.getTitulo());
+        peliculaBasicDTO.setFechaCreacion(peliculaEntity.getFechaCreacion());
+        return peliculaBasicDTO;
+    }
+
+    public List<PeliculaBasicDTO> peliculaEntitySet2DTOSet(List<PeliculaEntity> peliculaEntities){
+        List<PeliculaBasicDTO> dtos = new ArrayList<>();
+        for (PeliculaEntity entity : peliculaEntities){
+            dtos.add(peliculaEntity2BasicDTO(entity));
+        }
+        return dtos;
     }
 
    public PeliculaEntity updateValues(PeliculaEntity peliculaEntity, PeliculaDTO peliculaDTO){

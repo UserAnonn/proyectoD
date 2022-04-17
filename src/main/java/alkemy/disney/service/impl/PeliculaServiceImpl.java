@@ -1,6 +1,9 @@
 package alkemy.disney.service.impl;
 
+import alkemy.disney.dto.GeneroDTO;
+import alkemy.disney.dto.PeliculaBasicDTO;
 import alkemy.disney.dto.PeliculaDTO;
+import alkemy.disney.entity.GeneroEntity;
 import alkemy.disney.entity.PeliculaEntity;
 import alkemy.disney.mapper.PeliculaMapper;
 import alkemy.disney.repository.IPeliculaRepository;
@@ -8,6 +11,7 @@ import alkemy.disney.service.IPeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,4 +51,11 @@ public class PeliculaServiceImpl implements IPeliculaService {
         }
         return optional.get();
     }
+
+    public List<PeliculaBasicDTO> getAll() {
+        List<PeliculaEntity> peliculaEntities = iPeliculaRepository.findAll();
+        List<PeliculaBasicDTO> result = mapper.peliculaEntitySet2DTOSet(peliculaEntities);
+        return result;
+    }
+
 }
