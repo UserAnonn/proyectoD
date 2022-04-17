@@ -126,6 +126,25 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
