@@ -1,4 +1,4 @@
-package alkemy.disney.service.impl;
+package alkemy.disney.exception;
 
 
     public class ParamNotFound extends RuntimeException{

@@ -3,8 +3,7 @@ package alkemy.disney.controller;
 import alkemy.disney.dto.GeneroDTO;
 import alkemy.disney.dto.PeliculaBasicDTO;
 import alkemy.disney.dto.PeliculaDTO;
-import alkemy.disney.entity.GeneroEntity;
-import alkemy.disney.service.IGeneroService;
+import javax.validation.Valid;
 import alkemy.disney.service.IPeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,9 +20,15 @@ public class PeliculaController {
     private IPeliculaService iPeliculaService;
 
     @PostMapping
-    public ResponseEntity<PeliculaDTO> save(@RequestBody PeliculaDTO peliculaDTO){
+    public ResponseEntity<PeliculaDTO> save(@Valid @RequestBody PeliculaDTO peliculaDTO){
         PeliculaDTO peliculaGuardada = iPeliculaService.save(peliculaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(peliculaGuardada);
+    }
+
+    @PostMapping("/{idMovie}/character/{idCharacter}")
+    public ResponseEntity<PeliculaDTO> addPersonaje(@PathVariable Long idPelicula,@Valid @PathVariable Long idPersonaje){
+        PeliculaDTO peliculaDTO = iPeliculaService.addPersonaje2Pelicula(idPelicula, idPersonaje);
+        return ResponseEntity.status(HttpStatus.CREATED).body(peliculaDTO);
     }
 
     @PutMapping("/{id}")

@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class PeliculaDTO implements Serializable {
+public class PeliculaDTO {
 
     private Long id;
     private String imagen;
@@ -17,6 +17,6 @@ public class PeliculaDTO implements Serializable {
     private LocalDate fechaCreacion;
     private Integer calificacion;
     private Long generoId;
-    private Set<PersonajeBasicDTO> personajes;
+    private Set<PersonajeDT0> personajes;
 
 }

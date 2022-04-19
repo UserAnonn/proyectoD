@@ -22,7 +22,7 @@ public class GeneroController {
         return ResponseEntity.status(HttpStatus.CREATED).body(generoGuardado);
     }
 
-    @GetMapping //para ver si cuando borro una pelicula borra tambien el genero
+    @GetMapping //Sólo para ver si cuando borro una pelicula borra tambien el genero
     public ResponseEntity<List<GeneroDTO>> getAll(){
         List<GeneroDTO> generoDTOSet = generoService.getAllGeneros();
         return ResponseEntity.ok().body(generoDTOSet);

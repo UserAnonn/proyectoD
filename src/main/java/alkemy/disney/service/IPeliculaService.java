@@ -11,6 +11,8 @@ public interface IPeliculaService {
 
     PeliculaDTO save(PeliculaDTO peliculaDTO);
 
+    PeliculaDTO addPersonaje2Pelicula(Long idPelicula, Long idPersonaje);
+
     void delete(Long id);
 
     PeliculaDTO update(Long id, PeliculaDTO peliculaDTO);

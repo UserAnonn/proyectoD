@@ -29,19 +29,16 @@ public class PeliculaEntity {
     private String imagen;
     private String titulo;
 
-    @Column(name = "fecha_creacion", nullable = false, updatable = false)
+    @Column(name = "fecha_creacion", nullable = false)
     @CreationTimestamp
     private LocalDate fechaCreacion;
 
-    public LocalDate getCreated() {
-        return fechaCreacion;
-    }
 
     private Integer calificacion;
 
     @Column(name = "genero_id", nullable = false)
     private Long generoId;
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.PERSIST,optional = false)
     @JoinColumn(name = "genero_id", insertable=false, updatable=false)
     private GeneroEntity genero;
 
