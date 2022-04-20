@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"imagen\":\"isdf/lskj/ddfds.jpg\",\r\n    \"nombre\":\"Thriller\"\r\n}",
+					"raw": "{\r\n    \"imagen\":\"isdf/lskj/dfds.jpg\",\r\n    \"nombre\":\"Suspense\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -37,7 +37,18 @@
 			"name": "generos",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/generos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"generos"
+					]
+				}
 			},
 			"response": []
 		},
@@ -48,7 +59,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"imagen\": \"lkjd/lkj.jpg\",\r\n    \"titulo\": \"Pet Sematary\",\r\n    \"calificacion\": 5,\r\n    \"genero_id\":1\r\n}",
+					"raw": "{\r\n    \"imagen\": \"lkjd/lkj.jpg\",\r\n    \"titulo\": \"Coctail\",\r\n    \"calificacion\": 5,\r\n   \"generoId\": 2,\r\n   \"personajes\":[{\r\n    \"imagen\":\"ljsf/Tom.jpg\",\r\n    \"nombre\":\"Tom Cruise\",\r\n    \"edad\": 22,\r\n    \"peso\":88,\r\n    \"historia\":\"Es un buen muchacho\"\r\n    }]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,7 +95,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8090/movies/3",
+					"raw": "http://localhost:8090/movies/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -92,7 +103,7 @@
 					"port": "8090",
 					"path": [
 						"movies",
-						"3"
+						"5"
 					]
 				}
 			},
@@ -153,7 +164,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"imagen\":\"ljsf/ML.jpg\",\r\n    \"nombre\":\"Marcos Lusd\",\r\n    \"edad\": 52,\r\n    \"peso\":98,\r\n    \"historia\":\"Marcos es un buen chico\"\r\n}",
+					"raw": "{\r\n    \"imagen\":\"ljsf/ML.jpg\",\r\n    \"nombre\":\"Marcos Lusd\",\r\n    \"edad\": 52,\r\n    \"peso\":98,\r\n    \"historia\":\"Marcos es un buen chico\",\r\n    \"peliculas\":[{\r\n    \"imagen\" : \"lskf/dds.jpg\",\r\n    \"titulo\" :\"Top gun\",\r\n    \"fechaCreacion\": \"2022-02-03\",\r\n    \"calificacion\":5,\r\n    \"generoId\":1\r\n    }]\r\n    \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -202,7 +213,18 @@
 			"name": "characters",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/characters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"characters"
+					]
+				}
 			},
 			"response": []
 		},
@@ -241,7 +263,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8090/movies/4",
+					"raw": "http://localhost:8090/movies/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -249,7 +271,85 @@
 					"port": "8090",
 					"path": [
 						"movies",
-						"4"
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMovieByTitulo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/movies/?titulo=Matrix",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"movies",
+						""
+					],
+					"query": [
+						{
+							"key": "titulo",
+							"value": "Matrix"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMovieByGenero",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/movies/?generoId=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"movies",
+						""
+					],
+					"query": [
+						{
+							"key": "generoId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMovieAsc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/movies/?orden=ASC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"movies",
+						""
+					],
+					"query": [
+						{
+							"key": "orden",
+							"value": "ASC"
+						}
 					]
 				}
 			},
