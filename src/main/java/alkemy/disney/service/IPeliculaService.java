@@ -13,12 +13,17 @@ public interface IPeliculaService {
 
     PeliculaDTO addPersonaje2Pelicula(Long idPelicula, Long idPersonaje);
 
+    PeliculaDTO getDetails(Long id);
+
     void delete(Long id);
 
     PeliculaDTO update(Long id, PeliculaDTO peliculaDTO);
 
     PeliculaEntity findById(Long id);
 
-    List<PeliculaBasicDTO> getAll();
+    /*List<PeliculaBasicDTO> getAll();*/
 
+    List<PeliculaDTO> getDetailsByFilters(String titulo, Long generoId, String orden);
+
+    List<PeliculaDTO> getAllData();
 }

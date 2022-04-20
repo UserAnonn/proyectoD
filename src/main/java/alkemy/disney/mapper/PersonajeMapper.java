@@ -2,12 +2,14 @@ package alkemy.disney.mapper;
 
 import alkemy.disney.dto.PeliculaBasicDTO;
 import alkemy.disney.dto.PeliculaDTO;
+import alkemy.disney.dto.PersonajeBasicDTO;
 import alkemy.disney.dto.PersonajeDT0;
 import alkemy.disney.entity.PeliculaEntity;
 import alkemy.disney.entity.PersonajeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -52,12 +54,46 @@ public class PersonajeMapper {
         return personajeDT0;
     }
 
+    public List<PersonajeBasicDTO> PersonajeEntitySet2BasicDTOSet (List<PersonajeEntity> personajeEntities){
+        List<PersonajeBasicDTO> dtos = new ArrayList<>();
+        for (PersonajeEntity entity : personajeEntities){
+            dtos.add(personajeEntity2BasicDTO(entity));
+        }
+        return dtos;
+    }
+
+    private PersonajeBasicDTO personajeEntity2BasicDTO(PersonajeEntity entity) {
+        PersonajeBasicDTO personajeBasicDTO = new PersonajeBasicDTO();
+        personajeBasicDTO.setImagen(entity.getImagen());
+        personajeBasicDTO.setNombre(entity.getNombre());
+        return personajeBasicDTO;
+    }
+
+
+    public List<PersonajeBasicDTO> personajeEntitySet2BasicDTOSet(List<PersonajeEntity> personajeEntities){
+        List<PersonajeBasicDTO> dtos = new ArrayList<>();
+        for (PersonajeEntity entity : personajeEntities){
+            dtos.add(personajeEntity2BasicDTO(entity));
+        }
+        return dtos;
+    }
+
     public Set<PersonajeEntity> dtoSet2EntitySet(Set<PersonajeDT0> dtoSet, boolean loadPeliculas) {
         Set<PersonajeEntity> entitySet = new HashSet<>();
         for (PersonajeDT0 dto : dtoSet){
-            entitySet.add(this.personajeDTO2Entity(dto,loadPeliculas));
+            entitySet.add(this.personajeDTO2Entity(dto,false));
         }
         return entitySet;
+    }
+
+    public PersonajeEntity updateValues(PersonajeEntity personajeEntity, PersonajeDT0 personajeDT0) {
+        personajeEntity.setImagen(personajeDT0.getImagen());
+        personajeEntity.setNombre(personajeDT0.getNombre());
+        personajeEntity.setEdad(personajeDT0.getEdad());
+        personajeEntity.setPeso(personajeDT0.getPeso());
+        personajeEntity.setHistoria(personajeDT0.getHistoria());
+        personajeEntity.setId(personajeDT0.getId());
+        return personajeEntity;
     }
 }
 

@@ -2,11 +2,13 @@ package alkemy.disney.service.impl;
 
 import alkemy.disney.dto.PeliculaBasicDTO;
 import alkemy.disney.dto.PeliculaDTO;
+import alkemy.disney.dto.PeliculaFiltersDTO;
 import alkemy.disney.entity.PeliculaEntity;
 import alkemy.disney.entity.PersonajeEntity;
 import alkemy.disney.exception.ParamNotFound;
 import alkemy.disney.mapper.PeliculaMapper;
 import alkemy.disney.repository.IPeliculaRepository;
+import alkemy.disney.repository.specification.PeliculaSpec;
 import alkemy.disney.service.IPeliculaService;
 import alkemy.disney.service.IPersonajeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,22 @@ public class PeliculaServiceImpl implements IPeliculaService {
 
     @Autowired
     public IPersonajeService iPersonajeService;
+
+    @Autowired
+    public PeliculaSpec peliculaSpec;
+
+    @Autowired
+    public PeliculaServiceImpl(
+            IPeliculaRepository iPeliculaRepository,
+            PeliculaSpec peliculaSpec,
+            PeliculaMapper mapper,
+            IPersonajeService iPersonajeService){
+
+        this.iPeliculaRepository = iPeliculaRepository;
+        this.peliculaSpec = peliculaSpec;
+        this.mapper = mapper;
+        this.iPersonajeService = iPersonajeService;
+    }
 
     public PeliculaDTO save(PeliculaDTO peliculaDTO) {
 
@@ -53,12 +71,26 @@ public class PeliculaServiceImpl implements IPeliculaService {
         if (!optional.isPresent()) {
             throw new ParamNotFound("Movie id is not valid");
         }
+        PeliculaDTO peliculaDTO = this.mapper.peliculaEntity2DTO(optional.get(), true);
         return optional.get();
+    }
+
+    public List<PeliculaDTO> getDetailsByFilters(String titulo, Long generoId, String orden) {
+        PeliculaFiltersDTO filtersDTO = new PeliculaFiltersDTO(titulo, generoId, orden);
+        List<PeliculaEntity> entities = this.iPeliculaRepository.findAll(this.peliculaSpec.getByFilters(filtersDTO));
+        List<PeliculaDTO> dtos = this.mapper.entitySet2DtoList(entities, true);
+        return dtos;
     }
 
     public List<PeliculaBasicDTO> getAll() {
         List<PeliculaEntity> peliculaEntities = iPeliculaRepository.findAll();
         List<PeliculaBasicDTO> result = mapper.peliculaEntitySet2BasicDTOSet(peliculaEntities);
+        return result;
+    }
+
+    public List<PeliculaDTO> getAllData() {
+        List<PeliculaEntity> peliculaEntities = iPeliculaRepository.findAll();
+        List<PeliculaDTO> result = mapper.entitySet2DtoList(peliculaEntities, true);
         return result;
     }
 
@@ -70,4 +102,8 @@ public class PeliculaServiceImpl implements IPeliculaService {
         return mapper.peliculaEntity2DTO(iPeliculaRepository.save(peliculaEntity), true);
     }
 
+    public PeliculaDTO getDetails(Long id){
+        PeliculaEntity peliculaEntity = this.findById(id);
+        return mapper.peliculaEntity2DTO(peliculaEntity, true);
+    }
 }

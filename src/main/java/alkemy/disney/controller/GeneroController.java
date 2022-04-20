@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +18,7 @@ public class GeneroController {
     private IGeneroService generoService;
 
     @PostMapping
-    public ResponseEntity<GeneroDTO> save(@RequestBody GeneroDTO generoDTO){
+    public ResponseEntity<GeneroDTO> save(@Valid @RequestBody GeneroDTO generoDTO){
         GeneroDTO generoGuardado = generoService.save(generoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(generoGuardado);
     }
