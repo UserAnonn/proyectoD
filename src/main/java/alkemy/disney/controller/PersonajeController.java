@@ -33,7 +33,7 @@ public class PersonajeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersonajeDT0> update(@PathVariable Long id, @RequestBody PersonajeDT0 personajeDT0){
+    public ResponseEntity<PersonajeDT0> update(@PathVariable Long id, @Valid @RequestBody PersonajeDT0 personajeDT0){
         PersonajeDT0 result = iPersonajeService.update(id, personajeDT0);
         return ResponseEntity.ok().body(result);
     }

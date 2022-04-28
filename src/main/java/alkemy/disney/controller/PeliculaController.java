@@ -35,7 +35,7 @@ public class PeliculaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PeliculaDTO> update(@PathVariable Long id, @RequestBody PeliculaDTO peliculaDTO){
+    public ResponseEntity<PeliculaDTO> update(@PathVariable Long id, @Valid @RequestBody PeliculaDTO peliculaDTO){
         PeliculaDTO result = iPeliculaService.update(id, peliculaDTO);
         return ResponseEntity.ok().body(result);
     }
